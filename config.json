@@ -1,0 +1,131 @@
+{
+    "configuration": {
+        "graphs": [
+            "signal_strength"
+        ],
+        "modes": [
+            "base"
+        ],
+        "backends": [
+            "iperf3",
+            "base"
+        ],
+        "version": "0.2.4",
+        "target_interface": "if",
+        "target_ip": "ip",
+        "ssid": "TJ_5G",
+        "speedtest": -1,
+        "libre-speed-list": "",
+        "benchmark_iterations": 1
+    },
+    "results": {
+        "105": {
+            "position": {
+                "x": 276,
+                "y": 365
+            },
+            "fill_color": "lightblue",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": 37
+            }
+        },
+        "106": {
+            "position": {
+                "x": 453,
+                "y": 149
+            },
+            "fill_color": "lightblue",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": 37
+            }
+        },
+        "107": {
+            "position": {
+                "x": 320,
+                "y": 97
+            },
+            "fill_color": "lightblue",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": 37
+            }
+        },
+        "108": {
+            "position": {
+                "x": 644,
+                "y": 285
+            },
+            "fill_color": "lightblue",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": 37
+            }
+        },
+        "109": {
+            "position": {
+                "x": 192,
+                "y": 387
+            },
+            "fill_color": "lightblue",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": 37
+            }
+        },
+        "110": {
+            "position": {
+                "x": 569,
+                "y": 406
+            },
+            "fill_color": "lightblue",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": 36
+            }
+        },
+        "111": {
+            "position": {
+                "x": 362,
+                "y": 183
+            },
+            "fill_color": "lightblue",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": 36
+            }
+        },
+        "112": {
+            "position": {
+                "x": 285,
+                "y": 214
+            },
+            "fill_color": "lightblue",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": 36
+            }
+        },
+        "113": {
+            "position": {
+                "x": 371,
+                "y": 379
+            },
+            "fill_color": "lightblue",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": 36
+            }
+        }
+    }
+}
