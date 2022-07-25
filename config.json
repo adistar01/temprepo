@@ -19,82 +19,70 @@
         "benchmark_iterations": 1
     },
     "results": {
-        "327": {
-            "position": {
-                "x": 405,
-                "y": 335
-            },
-            "fill_color": "lightblue",
-            "selected": false,
-            "station": false,
-            "results": {
-                "signal_strength": 37
-            }
-        },
-        "328": {
-            "position": {
-                "x": 341,
-                "y": 87
-            },
-            "fill_color": "lightblue",
-            "selected": false,
-            "station": false,
-            "results": {
-                "signal_strength": 37
-            }
-        },
-        "329": {
-            "position": {
-                "x": 550,
-                "y": 388
-            },
-            "fill_color": "lightblue",
-            "selected": false,
-            "station": false,
-            "results": {
-                "signal_strength": 37
-            }
-        },
-        "330": {
-            "position": {
-                "x": 176,
-                "y": 337
-            },
-            "fill_color": "lightblue",
-            "selected": false,
-            "station": false,
-            "results": {
-                "signal_strength": 37
-            }
-        },
-        "331": {
-            "position": {
-                "x": 289,
-                "y": 239
-            },
-            "fill_color": "lightblue",
-            "selected": false,
-            "station": false,
-            "results": {
-                "signal_strength": 37
-            }
-        },
-        "332": {
-            "position": {
-                "x": 155,
-                "y": 227
-            },
-            "fill_color": "lightblue",
-            "selected": false,
-            "station": false,
-            "results": {
-                "signal_strength": 36
-            }
-        },
-        "333": {
+        "59": {
             "position": {
                 "x": 156,
-                "y": 340
+                "y": 56
+            },
+            "fill_color": "lightblue",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": 37
+            }
+        },
+        "60": {
+            "position": {
+                "x": 178,
+                "y": 323
+            },
+            "fill_color": "lightblue",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": 37
+            }
+        },
+        "61": {
+            "position": {
+                "x": 678,
+                "y": 299
+            },
+            "fill_color": "lightblue",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": 37
+            }
+        },
+        "62": {
+            "position": {
+                "x": 667,
+                "y": 328
+            },
+            "fill_color": "lightblue",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": 37
+            }
+        },
+        "63": {
+            "position": {
+                "x": 193,
+                "y": 114
+            },
+            "fill_color": "lightblue",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": 37
+            }
+        },
+        "64": {
+            "position": {
+                "x": 202,
+                "y": 372
             },
             "fill_color": "lightblue",
             "selected": false,
@@ -103,10 +91,10 @@
                 "signal_strength": 36
             }
         },
-        "334": {
+        "65": {
             "position": {
-                "x": 722,
-                "y": 392
+                "x": 368,
+                "y": 99
             },
             "fill_color": "lightblue",
             "selected": false,
@@ -115,10 +103,22 @@
                 "signal_strength": 36
             }
         },
-        "335": {
+        "66": {
             "position": {
-                "x": 593,
-                "y": 302
+                "x": 568,
+                "y": 306
+            },
+            "fill_color": "lightblue",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": 36
+            }
+        },
+        "67": {
+            "position": {
+                "x": 697,
+                "y": 90
             },
             "fill_color": "lightblue",
             "selected": false,
