@@ -33,9 +33,10 @@ app.get('/acc', (req, res, next) => {
   });
 
 // upoad single file
-app.post('/generate-heatmap', async (req, res) => {
+app.post('/generate-heatmap', (req, res) => {
     try {
-        if(!req.files) {
+        if(!req.files || (req.files.avatar && !req.files.floor) || (req.files.avatar && !req.files.floor)) {
+            
             res.send({
                 status: false,
                 message: 'No file uploaded'
@@ -47,15 +48,10 @@ app.post('/generate-heatmap', async (req, res) => {
             //Use the name of the input field (i.e. "avatar") to retrieve the uploaded files
             let avatar = req.files.avatar;
             let img = req.files.floor;
-            let val=true;
+            //let val=true;
             
-            //Use the mv() method to place the file in upload directory (i.e. "uploads")
-            avatar.mv('./uploads/' + avatar.name);
-            img.mv('./images/' + img.name);
-
-
-            const childPython = spawn('python', ['conv.py']);
-            console.log(childPython);
+            
+            const childPython = spawn('python', ['conv.py','config.json',avatar.name]);
             childPython.stdout.on('data', (data)=>{
                 console.log('stdout ::'+data);
             });
@@ -67,15 +63,19 @@ app.post('/generate-heatmap', async (req, res) => {
             childPython.stdout.on('close', (code)=>{
                 console.log('ChildPython process exited with code : '+code);
             });
+            
+            //Use the mv() method to place the file in upload directory (i.e. "uploads")
+            avatar.mv('./uploads/' + avatar.name);
+            img.mv('./images/' + img.name);
+            
 
-
+            
+            
             let TEST_CONFIG_JSON = "config.json";
 
-            const childPythen =  spawn('python', ['main.py',img.name,TEST_CONFIG_JSON]);
+            const childPythen = spawn('python', ['main.py',img.name,TEST_CONFIG_JSON]);
             
             childPythen.stdout.on('data', (data)=>{
-                if(res.sendFile(__dirname+"/signal_strength.png"))
-                val = false;
                 console.log('stdout :: '+data);
             });
             childPythen.stderr.on('data', (data)=>{
@@ -86,36 +86,19 @@ app.post('/generate-heatmap', async (req, res) => {
             });
             
             
-
             
-            /*const { stdout, stderr } = await spawn('python', ['main.py', img.name, TEST_CONFIG_JSON]);
-
-            if (stderr) {
-            console.error(`error: ${stderr}`);
-            }
-            else{
-            console.log(`Number of files ${stdout}`);
-            }
-            */
-        
-
-            //send response
-            if(val){
+            //res.sendFile(__dirname+"/signal_strength.png");
             res.send({
                 status: true,
                 message: 'File is uploaded',
                 data: {
                     name: avatar.name,
+                    name2: img.name,
                     mimetype: avatar.mimetype,
                     size: avatar.size
                 }
-            });
-        }
+            })
             
-            
-            
-            
-         
         }
     } catch (err) {
         res.status(500).send(err);
