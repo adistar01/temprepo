@@ -88,7 +88,7 @@ app.post('/generate-heatmap', (req, res) => {
             
             
             res.sendFile(__dirname+"/signal_strength.png");
-            res.send({
+            /*res.send({
                 status: true,
                 message: 'File is uploaded',
                 data: {
@@ -98,6 +98,7 @@ app.post('/generate-heatmap', (req, res) => {
                     size: avatar.size
                 }
             })
+            */
             
         }
     } catch (err) {
