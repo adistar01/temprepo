@@ -32,8 +32,20 @@ app.get('/acc', (req, res, next) => {
     res.sendFile(__dirname+"/access.html");
   });
 
+
+/*function func1(){
+    return new Promise(function(resolve, reject){
+        
+    })
+}
+*/
+function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+  } 
+
+
 // upoad single file
-app.post('/generate-heatmap', (req, res) => {
+app.post('/generate-heatmap', async(req, res) => {
     try {
         if(!req.files || (req.files.avatar && !req.files.floor) || (req.files.avatar && !req.files.floor)) {
             
@@ -51,7 +63,7 @@ app.post('/generate-heatmap', (req, res) => {
             //let val=true;
             
             
-            const childPython = spawn('python', ['conv.py','config.json',avatar.name]);
+            const childPython = spawn('python', ['./conv.py']);
             childPython.stdout.on('data', (data)=>{
                 console.log('stdout ::'+data);
             });
@@ -86,7 +98,16 @@ app.post('/generate-heatmap', (req, res) => {
             });
             
             
-            
+            /*var fileName = './signal_strength.png';
+            /*res.sendFile(fileName, options, function(err){
+            if (err) {
+                next(err);
+            } else {
+                console.log('Sent:', fileName);
+            }
+        });
+        */
+            await delay(5000);
             res.sendFile(__dirname+"/signal_strength.png");
             /*res.send({
                 status: true,

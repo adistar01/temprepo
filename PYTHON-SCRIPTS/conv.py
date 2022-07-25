@@ -44,5 +44,7 @@ class conv:
         
         with open(self.TEST_CONFIG_JSON, "w") as file:
             json.dump(JSON_structure, file, indent=4)
-     
-creste = conv(sys.argv[1], sys.argv[2]).run()
+
+
+if __name__ =="main":
+    creste = conv(sys.argv[1], sys.argv[2]).run()
