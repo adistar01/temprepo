@@ -50,12 +50,9 @@ app.post('/generate-heatmap', async(req, res) => {
                 message: 'No file uploaded'
             });
         } else {
-            console.log('Post page');
-            console.log('1');
             //Use the name of the input field (i.e. "avatar") to retrieve the uploaded files
             let avatar = req.files.avatar;
             //let img = req.files.floor;
-            console.log('2');
 
 
             var matches = req.body.base64image.match(/^data:([A-Za-z-+/]+);base64,(.+)$/);
