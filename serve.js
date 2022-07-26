@@ -27,7 +27,7 @@ app.use(morgan('dev'));
 //app.use(express.static('images'));
 
 app.get('/', (req, res) => {
-    res.sendFile("./index.html");
+    res.sendFile(__dirname+"/index.html");
   })
 
 app.get('/acc', (req, res, next) => {
@@ -89,8 +89,7 @@ app.post('/generate-heatmap', async(req, res) => {
             //console.log(temp)
             //console.log(avatar.name);
             try {
-                await fs.writeFileSync('./uploads/'+avatar.name, temp)
-                console.log(__dirname);
+                await fs.writeFileSync(__dirname+'/uploads/'+avatar.name, temp)
                 path = __dirname+"/uploads/"+avatar.name;
               } catch (err) {
                 console.log(err);
@@ -109,7 +108,7 @@ app.post('/generate-heatmap', async(req, res) => {
             });
             
             //Use the mv() method to place the file in upload directory (i.e. "uploads")
-            avatar.mv('./uploads/' + avatar.name);
+            avatar.mv(__dirname+'/uploads/' + avatar.name);
             //img.mv('./images/' + img.name);
             
 
@@ -170,34 +169,6 @@ app.post('/generate-heatmap', async(req, res) => {
 app.use(express.static('uploads'));
 app.use(express.static('images'));
 
-
-
-/*const uploadImage = async(req, res, next) => {
-    // to declare some path to store your converted image
-    var matches = req.body.base64image.match(/^data:([A-Za-z-+/]+);base64,(.+)$/),
-    response = {};
-     
-    if (matches.length !== 3) {
-    return new Error('Invalid input string');
-    }
-     
-    response.type = matches[1];
-    response.data = new Buffer(matches[2], 'base64');
-    let decodedImg = response;
-    let imageBuffer = decodedImg.data;
-    let type = decodedImg.type;
-    let extension = mime.extension(type);
-    let fileName = "image." + extension;
-    try {
-    fs.writeFileSync("./images/" + fileName, imageBuffer, 'utf8');
-    return res.send({"status":"success"});
-    } catch (e) {
-    next(e);
-    }
-    }
-
-app.post('/image', uploadImage)
-*/
 
 
 
