@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const _ = require('lodash');
 const { spawn } = require('child_process');
+const fs = require('fs')
+const mime = require('mime')
 
 const app = express();
 //const router = express.Router();
@@ -20,7 +22,7 @@ app.use(fileUpload({
 //add other middleware
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(morgan('dev'));
 //app.use(express.static('images'));
 
@@ -33,12 +35,6 @@ app.get('/acc', (req, res, next) => {
   });
 
 
-/*function func1(){
-    return new Promise(function(resolve, reject){
-        
-    })
-}
-*/
 function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
   } 
@@ -47,7 +43,7 @@ function delay(time) {
 // upoad single file
 app.post('/generate-heatmap', async(req, res) => {
     try {
-        if(!req.files || (req.files.avatar && !req.files.floor) || (req.files.avatar && !req.files.floor)) {
+        if(!req.files.avatar) {
             
             res.send({
                 status: false,
@@ -55,15 +51,52 @@ app.post('/generate-heatmap', async(req, res) => {
             });
         } else {
 
-
-
+            debugger;
+            console.log('1');
             //Use the name of the input field (i.e. "avatar") to retrieve the uploaded files
             let avatar = req.files.avatar;
-            let img = req.files.floor;
+            //let img = req.files.floor;
+            console.log('2');
+
+
+            var matches = req.body.base64image.match(/^data:([A-Za-z-+/]+);base64,(.+)$/);
+            response = {};
+             
+            if (matches.length !== 3) {
+            return new Error('Invalid input string');
+            }
+            console.log(Date.now());
+            response.type = matches[1];
+            response.data = new Buffer(matches[2], 'base64');
+            let decodedImg = response;
+            let imageBuffer = decodedImg.data;
+            let type = decodedImg.type;
+            let extension = mime.extension(type);
+            let fileName = 'image'+Date.now()+'.'+extension;
+            try {
+            fs.writeFileSync("./images/" + fileName, imageBuffer, 'utf8');
+            } catch (e) {
+            next(e);
+            }
+        
+            
+
+            //let buff = avatar.data;
+            //buff.toString('utf-8')
             //let val=true;
-            
-            
-            const childPython = spawn('python', ['./conv.py']);
+            let path="";
+            //console.log(typeof(req.files.avatar));
+            temp = req.files.avatar.data.toString('utf-8')
+            //console.log(temp)
+            //console.log(avatar.name);
+            try {
+                await fs.writeFileSync('./uploads/'+avatar.name, temp)
+                console.log(__dirname);
+                path = __dirname+"/uploads/"+avatar.name;
+              } catch (err) {
+                console.log(err);
+              }
+            const childPython = spawn('python', ['./conv.py',path]);
             childPython.stdout.on('data', (data)=>{
                 console.log('stdout ::'+data);
             });
@@ -78,14 +111,14 @@ app.post('/generate-heatmap', async(req, res) => {
             
             //Use the mv() method to place the file in upload directory (i.e. "uploads")
             avatar.mv('./uploads/' + avatar.name);
-            img.mv('./images/' + img.name);
+            //img.mv('./images/' + img.name);
             
 
             
             
             let TEST_CONFIG_JSON = "config.json";
 
-            const childPythen = spawn('python', ['main.py',img.name,TEST_CONFIG_JSON]);
+            const childPythen = spawn('python', ['main.py',fileName,TEST_CONFIG_JSON]);
             
             childPythen.stdout.on('data', (data)=>{
                 console.log('stdout :: '+data);
@@ -107,11 +140,18 @@ app.post('/generate-heatmap', async(req, res) => {
             }
         });
         */
-            await delay(5000);
+            await delay(7000);
+            fs.readFile(__dirname+"/signal_strength.png", function (err, data) {
+                if (err) throw err;
+                fs.writeFile(__dirname+'/Heatmaps/image'+Date.now()+'.png', data, function (err) {
+                    if (err) throw err;
+                    console.log('It\'s saved!');
+                });
+            });
             res.sendFile(__dirname+"/signal_strength.png");
             /*res.send({
                 status: true,
-                message: 'File is uploaded',
+                message: 'JOB COMPLETED',
                 data: {
                     name: avatar.name,
                     name2: img.name,
@@ -130,6 +170,38 @@ app.post('/generate-heatmap', async(req, res) => {
 //make uploads directory static
 app.use(express.static('uploads'));
 app.use(express.static('images'));
+
+
+
+/*const uploadImage = async(req, res, next) => {
+    // to declare some path to store your converted image
+    var matches = req.body.base64image.match(/^data:([A-Za-z-+/]+);base64,(.+)$/),
+    response = {};
+     
+    if (matches.length !== 3) {
+    return new Error('Invalid input string');
+    }
+     
+    response.type = matches[1];
+    response.data = new Buffer(matches[2], 'base64');
+    let decodedImg = response;
+    let imageBuffer = decodedImg.data;
+    let type = decodedImg.type;
+    let extension = mime.extension(type);
+    let fileName = "image." + extension;
+    try {
+    fs.writeFileSync("./images/" + fileName, imageBuffer, 'utf8');
+    return res.send({"status":"success"});
+    } catch (e) {
+    next(e);
+    }
+    }
+
+app.post('/image', uploadImage)
+*/
+
+
+
 
 //start app 
 const port = process.env.PORT || 3000;

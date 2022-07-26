@@ -3,9 +3,9 @@ import sys
 import random
 import json
 class conv:
-    def __init__(self, CONFIG_JSON, TXT):
-        self.TEST_CONFIG_JSON = CONFIG_JSON
+    def __init__(self, TXT):
         self.TXT = TXT
+        self.TEST_CONFIG_JSON = 'config.json'
     def run(self):
         df = pd.read_csv(self.TXT, sep="\t", header=None, names=["Number of times","SSID","RSSI","Frequency","LinkSpeed","RxLinkSpeed","TxLinkSpeed","operating_band"])
         df.drop(df.index[0:2], inplace=True)
@@ -47,4 +47,4 @@ class conv:
 
 
 if __name__ =="main":
-    creste = conv(sys.argv[1], sys.argv[2]).run()
+    creste = conv(sys.argv[1]).run()
