@@ -27,6 +27,7 @@ app.use(morgan('dev'));
 //app.use(express.static('images'));
 
 app.get('/', (req, res) => {
+    console.log("Index page")
     res.sendFile(__dirname+"/index.html");
   })
 
@@ -50,8 +51,7 @@ app.post('/generate-heatmap', async(req, res) => {
                 message: 'No file uploaded'
             });
         } else {
-
-            debugger;
+            console.log('Post page');
             console.log('1');
             //Use the name of the input field (i.e. "avatar") to retrieve the uploaded files
             let avatar = req.files.avatar;
