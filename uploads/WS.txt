@@ -1,0 +1,17 @@
+Number of times	SSID	RSSI	X	Y	Frequency	LinkSpeed	RxLinkSpeed	TxLinkSpeed	operating_band
+1	"Airtel_R&D_2.4GHz"	-42	262	570	2462	72	0	0	2.4
+2	"Airtel_R&D_2.4GHz"	-42	193	1043	2462	72	0	0	2.4
+3	"Airtel_R&D_2.4GHz"	-39	150	661	2462	72	0	0	2.4
+4	"Airtel_R&D_2.4GHz"	-38	69	766	2462	72	0	0	2.4
+5	"Airtel_R&D_2.4GHz"	-40	600	386	2462	72	0	0	2.4
+6	"Airtel_R&D_2.4GHz"	-47	321	230	2462	72	0	0	2.4
+7	"Airtel_R&D_2.4GHz"	-51	226	315	2462	72	0	0	2.4
+8	"Airtel_R&D_2.4GHz"	-40	501	715	2462	72	0	0	2.4
+9	"Airtel_R&D_2.4GHz"	-40	619	366	2462	72	0	0	2.4
+10	"Airtel_R&D_2.4GHz"	-42	207	351	2462	72	0	0	2.4
+11	"Airtel_R&D_2.4GHz"	-40	191	734	2462	72	0	0	2.4
+12	"Airtel_R&D_2.4GHz"	-40	134	274	2462	72	0	0	2.4
+13	"Airtel_R&D_2.4GHz"	-41	628	370	2462	72	0	0	2.4
+14	"Airtel_R&D_2.4GHz"	-40	282	324	2462	72	0	0	2.4
+15	"Airtel_R&D_2.4GHz"	-41	331	711	2462	72	0	0	2.4
+16	"Airtel_R&D_2.4GHz"	-39	674	908	2462	72	0	0	2.4

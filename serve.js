@@ -27,8 +27,7 @@ app.use(morgan('dev'));
 //app.use(express.static('images'));
 
 app.get('/', (req, res) => {
-    console.log("Index page")
-    res.sendFile(__dirname+"/index.html");
+    res.sendFile("./index.html");
   })
 
 app.get('/acc', (req, res, next) => {
