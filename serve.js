@@ -96,8 +96,8 @@ app.post('/generate-heatmap', async(req, res) => {
                 console.log('stdout ::'+data);
             });
             
-            childPython.stderr.on('end', (data)=>{
-                console.log('stderr : '+data);
+            childPython.stderr.on('err', (data)=>{
+                console.log('stderr Chpython : '+data);
             });
 
 
@@ -117,8 +117,8 @@ app.post('/generate-heatmap', async(req, res) => {
             childPythen.stdout.on('data', (data)=>{
                 console.log('stdout :: '+data);
             });
-            childPythen.stderr.on('data', (data)=>{
-                console.log('stderr :: '+data);
+            childPythen.stderr.on('error', (data)=>{
+                console.log('stderr chPythen:: '+data);
             });
             childPythen.stdout.on('close', (code)=>{
                 console.log('ChildPythen process exited with code : '+code);

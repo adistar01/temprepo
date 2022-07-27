@@ -3,7 +3,6 @@ import sys
 import random
 import json
 import os
-err = False
 
 def color(rssi):
     if rssi<=0 and rssi>-11:
@@ -30,9 +29,6 @@ TEST_CONFIG_JSON = 'config.json'
 #TXT = './uploads/WSS.txt'
 TXT = sys.argv[1]
 # check if size of file is 0
-if os.stat(TXT).st_size == 0:
-    err('Empty file')
-    exit(1)
 df = pd.read_csv(TXT, sep="\t", header=None, names=["Number of times","SSID","RSSI","X","Y","Frequency","LinkSpeed","RxLinkSpeed","TxLinkSpeed","operating_band"]) 
 df.drop(df.index[0:1], inplace=True) 
 df.to_json('data.json', orient='records') 
