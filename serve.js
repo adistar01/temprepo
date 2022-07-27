@@ -79,7 +79,7 @@ app.post('/generate-heatmap', async(req, res) => {
 
             //let buff = avatar.data;
             //buff.toString('utf-8')
-            //let val=true;
+            let val=true;
             let path="";
             //console.log(typeof(req.files.avatar));
             temp = req.files.avatar.data.toString('utf-8')
@@ -96,20 +96,22 @@ app.post('/generate-heatmap', async(req, res) => {
                 console.log('stdout ::'+data);
             });
             
-            childPython.stderr.on('data', (data)=>{
-                console.log('stderr :: '+data);
+            childPython.stderr.on('end', (data)=>{
+                val = false;
+                res.end("Empty file");
             });
-            
+            if(val==false)
+            return;
+
+
+
             childPython.stdout.on('close', (code)=>{
                 console.log('ChildPython process exited with code : '+code);
             });
+
             
             //Use the mv() method to place the file in upload directory (i.e. "uploads")
             avatar.mv(__dirname+'/uploads/' + avatar.name);
-            //img.mv('./images/' + img.name);
-            
-
-            
             
             let TEST_CONFIG_JSON = "config.json";
 
@@ -143,7 +145,6 @@ app.post('/generate-heatmap', async(req, res) => {
                     console.log('It\'s saved!');
                 });
             });
-            res.sendFile(__dirname+"/signal_strength.png");
             /*res.send({
                 status: true,
                 message: 'JOB COMPLETED',
@@ -155,12 +156,17 @@ app.post('/generate-heatmap', async(req, res) => {
                 }
             })
             */
+        
             
         }
     } catch (err) {
         res.status(500).send(err);
     }
 });
+
+app.get('/get_heatmap',(req,res)=>{
+    res.sendFile(__dirname+"/signal_strength.png");
+})
 
 //make uploads directory static
 app.use(express.static('uploads'));
