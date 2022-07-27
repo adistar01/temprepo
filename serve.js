@@ -97,11 +97,8 @@ app.post('/generate-heatmap', async(req, res) => {
             });
             
             childPython.stderr.on('end', (data)=>{
-                val = false;
-                res.end("Empty file");
+                console.log('stderr : '+code);
             });
-            if(val==false)
-            return;
 
 
 
