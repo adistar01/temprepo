@@ -40,13 +40,14 @@ function delay(time) {
   } 
 
 
+
 // upoad single file
 app.post('/generate-heatmap', async(req, res) => {
     try {
         if(!req.files.avatar) {
             
             res.send({
-                status: false,
+                status : false,
                 message: 'No file uploaded'
             });
         } else {
@@ -121,6 +122,7 @@ app.post('/generate-heatmap', async(req, res) => {
                 console.log('stderr chPythen:: '+data);
             });
             childPythen.stdout.on('close', (code)=>{
+                console.log();
                 console.log('ChildPythen process exited with code : '+code);
             });
             
