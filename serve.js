@@ -143,7 +143,7 @@ app.post('/generate-heatmap', async(req, res) => {
                 });
             });
         
-            
+            res.sendFile(__dirname+"/signal_strength.png")
         }
     } catch (err) {
         res.status(500).send(err);
