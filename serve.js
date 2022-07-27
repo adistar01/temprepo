@@ -26,6 +26,10 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(morgan('dev'));
 //app.use(express.static('images'));
 
+
+
+
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname+"/index.html");
   })
@@ -44,16 +48,18 @@ function delay(time) {
 // upoad single file
 app.post('/generate-heatmap', async(req, res) => {
     try {
-        if(!req.files.avatar) {
-            
-            res.send({
-                status : false,
-                message: 'No file uploaded'
-            });
-        } else {
-            //Use the name of the input field (i.e. "avatar") to retrieve the uploaded files
-            let avatar = req.files.avatar;
-            //let img = req.files.floor;
+        if(!req.body.base64image && !req.files){
+            res.status(404).send( 'No input found');
+        }
+        else if(!req.files) {
+            res.status(400).end( 'No txt file uploaded');
+        }
+        else if(!req.body.base64image){
+            res.status(400).end( 'No image uploaded!');
+        }
+         else {
+            //Use the name of the input field (i.e. "txtFile") to retrieve the uploaded files
+            let txtFile = req.files.txtFile;
 
 
             var matches = req.body.base64image.match(/^data:([A-Za-z-+/]+);base64,(.+)$/);
@@ -77,18 +83,12 @@ app.post('/generate-heatmap', async(req, res) => {
             }
         
             
-
-            //let buff = avatar.data;
-            //buff.toString('utf-8')
             let val=true;
             let path="";
-            //console.log(typeof(req.files.avatar));
-            temp = req.files.avatar.data.toString('utf-8')
-            //console.log(temp)
-            //console.log(avatar.name);
+            temp = req.files.txtFile.data.toString('utf-8')
             try {
-                await fs.writeFileSync(__dirname+'/uploads/'+avatar.name, temp)
-                path = __dirname+"/uploads/"+avatar.name;
+                await fs.writeFileSync(__dirname+'/uploads/'+txtFile.name, temp)
+                path = __dirname+"/uploads/"+txtFile.name;
               } catch (err) {
                 console.log(err);
               }
@@ -104,12 +104,12 @@ app.post('/generate-heatmap', async(req, res) => {
 
 
             childPython.stdout.on('close', (code)=>{
-                console.log('ChildPython process exited with code : '+code);
+                console.log(`ChildPython process exited with code : ${code}`);
             });
 
             
             //Use the mv() method to place the file in upload directory (i.e. "uploads")
-            avatar.mv(__dirname+'/uploads/' + avatar.name);
+            txtFile.mv(__dirname+'/uploads/' + txtFile.name);
             
             let TEST_CONFIG_JSON = "config.json";
 
