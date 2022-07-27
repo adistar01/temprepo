@@ -26,15 +26,6 @@ def color(rssi):
         return "blue"
     
 
-
-#with open('./uploads/WSS.txt','r') as my_file:
-## I already have file open at this point.. now what?
-#    my_file.seek(0) # Ensure you're at the start of the file..
-#    first_char = my_file.read(1) # Get the first character
-#    if not first_char:
-#        print ("file is empty") # The first character is the empty string..
-#        err = True
-
 TEST_CONFIG_JSON = 'config.json' 
 #TXT = './uploads/WSS.txt'
 TXT = sys.argv[1]
