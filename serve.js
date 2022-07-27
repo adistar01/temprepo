@@ -97,7 +97,7 @@ app.post('/generate-heatmap', async(req, res) => {
             });
             
             childPython.stderr.on('end', (data)=>{
-                console.log('stderr : '+code);
+                console.log('stderr : '+data);
             });
 
 
