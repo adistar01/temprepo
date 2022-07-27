@@ -18,5 +18,198 @@
         "libre-speed-list": "",
         "benchmark_iterations": 1
     },
-    "results": {}
+    "results": {
+        "230": {
+            "position": {
+                "x": 70,
+                "y": 570
+            },
+            "fill_color": "magenta",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": -60
+            }
+        },
+        "231": {
+            "position": {
+                "x": 180,
+                "y": 1043
+            },
+            "fill_color": "lightpink",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": -12
+            }
+        },
+        "232": {
+            "position": {
+                "x": 150,
+                "y": 661
+            },
+            "fill_color": "white",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": -30
+            }
+        },
+        "233": {
+            "position": {
+                "x": 69,
+                "y": 766
+            },
+            "fill_color": "yellow",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": -35
+            }
+        },
+        "234": {
+            "position": {
+                "x": 200,
+                "y": 386
+            },
+            "fill_color": "lightblue",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": -70
+            }
+        },
+        "235": {
+            "position": {
+                "x": 321,
+                "y": 530
+            },
+            "fill_color": "magenta",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": -5
+            }
+        },
+        "236": {
+            "position": {
+                "x": 626,
+                "y": 315
+            },
+            "fill_color": "lightgreen",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": -51
+            }
+        },
+        "237": {
+            "position": {
+                "x": 301,
+                "y": 715
+            },
+            "fill_color": "yellow",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": -40
+            }
+        },
+        "238": {
+            "position": {
+                "x": 219,
+                "y": 366
+            },
+            "fill_color": "yellow",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": -40
+            }
+        },
+        "239": {
+            "position": {
+                "x": 407,
+                "y": 351
+            },
+            "fill_color": "lightblue",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": -66
+            }
+        },
+        "240": {
+            "position": {
+                "x": 191,
+                "y": 734
+            },
+            "fill_color": "cyan",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": -78
+            }
+        },
+        "241": {
+            "position": {
+                "x": 134,
+                "y": 274
+            },
+            "fill_color": "white",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": -25
+            }
+        },
+        "242": {
+            "position": {
+                "x": 628,
+                "y": 370
+            },
+            "fill_color": "yellow",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": -41
+            }
+        },
+        "243": {
+            "position": {
+                "x": 282,
+                "y": 324
+            },
+            "fill_color": "yellow",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": -40
+            }
+        },
+        "244": {
+            "position": {
+                "x": 331,
+                "y": 711
+            },
+            "fill_color": "yellow",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": -41
+            }
+        },
+        "245": {
+            "position": {
+                "x": 674,
+                "y": 908
+            },
+            "fill_color": "yellow",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": -39
+            }
+        }
+    }
 }

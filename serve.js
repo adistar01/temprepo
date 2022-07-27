@@ -145,17 +145,6 @@ app.post('/generate-heatmap', async(req, res) => {
                     console.log('It\'s saved!');
                 });
             });
-            /*res.send({
-                status: true,
-                message: 'JOB COMPLETED',
-                data: {
-                    name: avatar.name,
-                    name2: img.name,
-                    mimetype: avatar.mimetype,
-                    size: avatar.size
-                }
-            })
-            */
         
             
         }

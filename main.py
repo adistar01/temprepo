@@ -12,11 +12,14 @@ class MakeHeatMap:
 
     def run(self):
         v = True
-        pid = os.system(
+        #pid = os.system(
+        #    "whm plot --map ./images/" + self.img + " --config " + self.json
+        #    )
+        os.system(
             "whm plot --map ./images/" + self.img + " --config " + self.json
             )
-        if pid==0:
-            return
+        #if pid==0:
+        #   return
         #subprocess.call("whm plot --map ./images/" + self.img + " --config " + self.json, shell=True)
 
 
