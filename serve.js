@@ -9,7 +9,6 @@ const fs = require('fs')
 const mime = require('mime')
 
 const app = express();
-//const router = express.Router();
 
 // enable files upload
 app.use(fileUpload({
@@ -24,118 +23,90 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(morgan('dev'));
-//app.use(express.static('images'));
 
 
 
 
-
+// index page displayed for get request in case file and image are uploaded through web
 app.get('/', (req, res) => {
     res.sendFile(__dirname+"/index.html");
   })
 
-app.get('/acc', (req, res, next) => {
-    res.sendFile(__dirname+"/access.html");
-  });
-
-
+// for adding delay until response file is generated
 function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
   } 
 
 
 
-// upoad single file
+// api for handling post request and sending heatmap generated
 app.post('/generate-heatmap', async(req, res) => {
     try {
+
+        // if both file and base64 image are not present
         if(!req.body.base64image && !req.files){
             console.log('No i/p');
             res.status(404).send( 'No input found');
         }
+
+
+        // if text file is not sent
         else if(!req.files) {
             console.log('No txt file');
             res.status(400).end( 'No txt file uploaded');
         }
+
+
+        // if image file is not sent
         else if(!req.body.base64image){
             console.log('No image');
             res.status(400).end( 'No image uploaded!');
         }
-         else {
+
+
+
+        else {
             //Use the name of the input field (i.e. "txtFile") to retrieve the uploaded files
             let txtFile = req.files.txtFile;
-            console.log(1);
 
-            //var matches = req.body.base64image.match(/^data:([A-Za-z-+/]+);base64,(.+)$/);
-            //response = {};
-            // 
-            //if (matches.length !== 3) {
-            //return new Error('Invalid input string');
-            //}
-            //response.type = matches[1];
-            //response.data = new Buffer(matches[2], 'base64');
-            //let decodedImg = response;
-            //let imageBuffer = decodedImg.data;
-            //console.log(imageBuffer)
-            //let type = decodedImg.type;
-            //let extension = mime.extension(type);
-            //let fileName = 'image'+Date.now()+'.'+extension;
-            //try {
-            //fs.writeFileSync("./images/" + fileName, imageBuffer, 'utf8');
-            //} catch (e) {
-            //next(e);
-            //}
-
-
-
-
-
+            // image buffer to store the buffer value of image sent
             let imageBuffer = new Buffer(req.body.base64image, 'base64');
+            
+            //saving image file sent
             let fileName = 'image'+Date.now()+'.png';
             try {
             fs.writeFileSync("./images/" + fileName, imageBuffer, 'utf8');
             } catch (e) {
             next(e);
             }
-
-
-            console.log(2);
-
-            console.log(req);
-            console.log();
-
-
-
-            console.log(req.files);
-            console.log();
-            console.log(req.files.file);
-            console.log();
-            console.log(req.body);
-            console.log(txtFile);
-            //console.log(req.body.base64image);
             
-            let val=true;
+            // storing the text file sent
             let path="";
             temp = req.files.txtFile.data.toString('utf-8');
             console.log(temp);
-            console.log(3);
             try {
                 await fs.writeFileSync(__dirname+'/uploads/'+txtFile.name, temp);
                 path = __dirname+"/uploads/"+txtFile.name;
               } catch (err) {
                 console.log(err);
               }
-              console.log(4);
+
+
+            // running spawn method to generate the json file according to which heatmap will be generated
             const childPython = spawn('python', ['./conv.py',path]);
+
+        
             childPython.stdout.on('data', (data)=>{
                 console.log('stdout ::'+data);
             });
             
+            // in case error occurs
             childPython.stderr.on('err', (data)=>{
                 console.log('stderr Chpython : '+data);
             });
 
 
-
+            // after script execution is complete
             childPython.stdout.on('close', (code)=>{
                 console.log(`ChildPython process exited with code : ${code}`);
             });
@@ -145,31 +116,29 @@ app.post('/generate-heatmap', async(req, res) => {
             txtFile.mv(__dirname+'/uploads/' + txtFile.name);
             
             let TEST_CONFIG_JSON = "config.json";
+            
 
+            //running spawn method to generate the heatmap according to json file generated
             const childPythen = spawn('python', ['main.py',fileName,TEST_CONFIG_JSON]);
             
             childPythen.stdout.on('data', (data)=>{
                 console.log('stdout :: '+data);
             });
+
             childPythen.stderr.on('error', (data)=>{
                 console.log('stderr chPythen:: '+data);
             });
+
             childPythen.stdout.on('close', (code)=>{
                 console.log();
                 console.log('ChildPythen process exited with code : '+code);
             });
-            
-            
-            /*var fileName = './signal_strength.png';
-            /*res.sendFile(fileName, options, function(err){
-            if (err) {
-                next(err);
-            } else {
-                console.log('Sent:', fileName);
-            }
-        });
-        */
+
+
+            // waiting for heatmap to get generated
             await delay(7000);
+
+            //storing the heatmap generated
             fs.readFile(__dirname+"/signal_strength.png", function (err, data) {
                 if (err) throw err;
                 fs.writeFile(__dirname+'/Heatmaps/image'+Date.now()+'.png', data, function (err) {
@@ -178,16 +147,15 @@ app.post('/generate-heatmap', async(req, res) => {
                 });
             });
         
+            // sending heatmap as response
             res.sendFile(__dirname+"/signal_strength.png")
         }
     } catch (err) {
+        // in case of any internal error on server
         res.status(500).send(err);
     }
 });
 
-app.get('/get_heatmap',(req,res)=>{
-    res.sendFile(__dirname+"/signal_strength.png");
-})
 
 //make uploads directory static
 app.use(express.static('uploads'));
