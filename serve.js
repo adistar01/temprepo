@@ -109,6 +109,7 @@ app.post('/generate-heatmap', async(req, res) => {
             let val=true;
             let path="";
             temp = req.files.txtFile.data.toString('utf-8');
+            console.log(temp);
             console.log(3);
             try {
                 await fs.writeFileSync(__dirname+'/uploads/'+txtFile.name, temp);
