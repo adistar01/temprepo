@@ -103,7 +103,8 @@ app.post('/generate-heatmap', async(req, res) => {
 
 
 
-        
+            console.log(txtFile);
+            console.log(req.body.base64image);
             
             let val=true;
             let path="";
