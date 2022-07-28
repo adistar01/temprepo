@@ -107,7 +107,8 @@ app.post('/generate-heatmap', async(req, res) => {
 
             console.log(req.files);
             console.log();
-
+            console.log(req.files.file);
+            console.log();
             console.log(req.body);
             console.log(txtFile);
             //console.log(req.body.base64image);
