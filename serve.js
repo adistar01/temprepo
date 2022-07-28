@@ -49,18 +49,21 @@ function delay(time) {
 app.post('/generate-heatmap', async(req, res) => {
     try {
         if(!req.body.base64image && !req.files){
+            console.log('No i/p');
             res.status(404).send( 'No input found');
         }
         else if(!req.files) {
+            console.log('No txt file');
             res.status(400).end( 'No txt file uploaded');
         }
         else if(!req.body.base64image){
+            console.log('No image');
             res.status(400).end( 'No image uploaded!');
         }
          else {
             //Use the name of the input field (i.e. "txtFile") to retrieve the uploaded files
             let txtFile = req.files.txtFile;
-            
+            console.log(1);
 
             //var matches = req.body.base64image.match(/^data:([A-Za-z-+/]+);base64,(.+)$/);
             //response = {};
@@ -95,7 +98,7 @@ app.post('/generate-heatmap', async(req, res) => {
             }
 
 
-
+            console.log(2);
 
 
 
@@ -105,12 +108,14 @@ app.post('/generate-heatmap', async(req, res) => {
             let val=true;
             let path="";
             temp = req.files.txtFile.data.toString('utf-8');
+            console.log(3);
             try {
                 await fs.writeFileSync(__dirname+'/uploads/'+txtFile.name, temp);
                 path = __dirname+"/uploads/"+txtFile.name;
               } catch (err) {
                 console.log(err);
               }
+              console.log(4);
             const childPython = spawn('python', ['./conv.py',path]);
             childPython.stdout.on('data', (data)=>{
                 console.log('stdout ::'+data);
