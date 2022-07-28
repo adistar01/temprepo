@@ -30,7 +30,7 @@ TEST_CONFIG_JSON = 'config.json'
 TXT = sys.argv[1]
 # check if size of file is 0
 df = pd.read_csv(TXT, sep="\t", header=None, names=["Number of times","SSID","RSSI","X","Y","Frequency","LinkSpeed","RxLinkSpeed","TxLinkSpeed","operating_band"]) 
-df.drop(df.index[0:1], inplace=True) 
+df.drop(df.index[0:2], inplace=True) 
 df.to_json('data.json', orient='records') 
 v = df.shape[0] 
 JSON_structure = { 

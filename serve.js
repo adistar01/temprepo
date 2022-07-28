@@ -60,34 +60,53 @@ app.post('/generate-heatmap', async(req, res) => {
          else {
             //Use the name of the input field (i.e. "txtFile") to retrieve the uploaded files
             let txtFile = req.files.txtFile;
+            
+
+            //var matches = req.body.base64image.match(/^data:([A-Za-z-+/]+);base64,(.+)$/);
+            //response = {};
+            // 
+            //if (matches.length !== 3) {
+            //return new Error('Invalid input string');
+            //}
+            //response.type = matches[1];
+            //response.data = new Buffer(matches[2], 'base64');
+            //let decodedImg = response;
+            //let imageBuffer = decodedImg.data;
+            //console.log(imageBuffer)
+            //let type = decodedImg.type;
+            //let extension = mime.extension(type);
+            //let fileName = 'image'+Date.now()+'.'+extension;
+            //try {
+            //fs.writeFileSync("./images/" + fileName, imageBuffer, 'utf8');
+            //} catch (e) {
+            //next(e);
+            //}
 
 
-            var matches = req.body.base64image.match(/^data:([A-Za-z-+/]+);base64,(.+)$/);
-            response = {};
-             
-            if (matches.length !== 3) {
-            return new Error('Invalid input string');
-            }
-            console.log(Date.now());
-            response.type = matches[1];
-            response.data = new Buffer(matches[2], 'base64');
-            let decodedImg = response;
-            let imageBuffer = decodedImg.data;
-            let type = decodedImg.type;
-            let extension = mime.extension(type);
-            let fileName = 'image'+Date.now()+'.'+extension;
+
+
+
+            let imageBuffer = new Buffer(req.body.base64image, 'base64');
+            let fileName = 'image'+Date.now()+'.png';
             try {
             fs.writeFileSync("./images/" + fileName, imageBuffer, 'utf8');
             } catch (e) {
             next(e);
             }
+
+
+
+
+
+
+
         
             
             let val=true;
             let path="";
-            temp = req.files.txtFile.data.toString('utf-8')
+            temp = req.files.txtFile.data.toString('utf-8');
             try {
-                await fs.writeFileSync(__dirname+'/uploads/'+txtFile.name, temp)
+                await fs.writeFileSync(__dirname+'/uploads/'+txtFile.name, temp);
                 path = __dirname+"/uploads/"+txtFile.name;
               } catch (err) {
                 console.log(err);
