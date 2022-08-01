@@ -69,8 +69,9 @@ app.post('/generate-heatmap', async(req, res) => {
             //} catch (e) {
             //next(e);
             //}
-            //console.log(req.body.base64image);
+            console.log(req.body.base64image);
             let imageBuffer = new Buffer(req.body.base64image, 'base64');
+
             let fileName = 'image'+Date.now()+'.jpeg';
             try {
             fs.writeFileSync('./images/' + fileName, imageBuffer, 'utf8');
