@@ -130,7 +130,7 @@ app.post('/generate-heatmap', async(req, res) => {
             await delay(5000);
             fs.readFile(__dirname+"/signal_strength.png", function (err, data) {
                 if (err) throw err;
-                fs.writeFile(__dirname+'/Heatmaps/image'+Date.now()+'.png', data, function (err) {
+                fs.writeFile(__dirname+'/Heatmaps/image'+Date.now()+'.jpeg', data, function (err) {
                     if (err) throw err;
                     console.log('It\'s saved!');
                 });
