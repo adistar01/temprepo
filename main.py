@@ -12,7 +12,6 @@ class MakeHeatMap:
 
     def run(self):
         print("A plot 2")
-        print(self.img)
         generate_graph(data=self.json, floor_map="./images/"+self.img)
         print("Created")
         
