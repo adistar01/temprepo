@@ -7,7 +7,6 @@ const _ = require('lodash');
 const { spawn } = require('child_process');
 const fs = require('fs')
 const mime = require('mime')
-const uuidv4 = require('uuid/v4');
 
 const app = express();
 //const router = express.Router();
@@ -76,7 +75,7 @@ app.post('/generate-heatmap', async(req, res) => {
             //let timestamp = new Date().getTime().toString();
             //let fileName = 'image'+timestamp+'.png';
             let fileName = req.body.base64image.name;
-            console.log(fileName);
+            //console.log(fileName);
 
             try {
             fs.writeFileSync("./images/" + fileName+'.png', imageBuffer, 'utf-8');
