@@ -69,7 +69,7 @@ app.post('/generate-heatmap', async(req, res) => {
             //} catch (e) {
             //next(e);
             //}
-            console.log(req.body.base64image);
+            //console.log(req.body.base64image);
             let imageBuffer = new Buffer(req.body.base64image, 'base64');
             let fileName = 'image'+Date.now()+'.jpeg';
             try {
@@ -127,7 +127,7 @@ app.post('/generate-heatmap', async(req, res) => {
             }
         });
         */
-            await delay(7000);
+            await delay(5000);
             fs.readFile(__dirname+"/signal_strength.png", function (err, data) {
                 if (err) throw err;
                 fs.writeFile(__dirname+'/Heatmaps/image'+Date.now()+'.png', data, function (err) {
