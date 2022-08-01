@@ -34,22 +34,25 @@ function delay(time) {
 // upoad single file
 app.post('/generate-heatmap', async(req, res) => {
     try {
-        if(!req.body.base64image && !req.files){
-            console.log('No i/p');
-            res.status(404).send( 'No input found');
-        }
-        else if(!req.files) {
+        //if(!req.body.base64image && !req.files){
+        //    console.log('No i/p');
+        //    res.status(404).send( 'No input found');
+        //}
+        //else if(!req.files) {
+            if(!req.files) {
             console.log('No txt file');
             res.status(400).end( 'No txt file uploaded');
         }
-        else if(!req.body.base64image){
-            console.log('No image');
-            res.status(400).end( 'No image uploaded!');
-        }
+        //else if(!req.body.base64image){
+        //    console.log('No image');
+        //    res.status(400).end( 'No image uploaded!');
+        //}
          else {
             //Use the name of the input field (i.e. "txtFile") to retrieve the uploaded files
             let txtFile = req.files.txtFile;
+            let img = req.files.base64image;
             console.log(1);
+            img.mv('./images/' + img.name);
             //var matches = req.body.base64image.match(/^data:([A-Za-z-+/]+);base64,(.+)$/);
             //response = {};
             // 
@@ -69,18 +72,18 @@ app.post('/generate-heatmap', async(req, res) => {
             //} catch (e) {
             //next(e);
             //}
-            console.log(req.body);
-            console.log(req.body.base64image);
-            b64 = req.body.base64image.split(" ").join("");
+            //console.log(req.body);
+            //console.log(req.body.base64image);
+            //let b64 = req.body.base64image.split(" ").join("");
             //console.log(b64);
-            let imageBuffer = new Buffer(b64, 'base64');
-
-            let fileName = 'image'+Date.now()+'.jpeg';
-            try {
-            fs.writeFileSync('./images/' + fileName, imageBuffer, 'utf8');
-            } catch (e) {
-            next(e);
-            }
+            //let imageBuffer = new Buffer(b64, 'base64');
+//
+            //let fileName = 'image'+Date.now()+'.jpeg';
+            //try {
+            //fs.writeFileSync('./images/' + fileName, imageBuffer, 'utf8');
+            //} catch (e) {
+            //next(e);
+            //}
             
             let path="";
             temp = req.files.txtFile.data.toString('utf-8');
@@ -109,7 +112,7 @@ app.post('/generate-heatmap', async(req, res) => {
             txtFile.mv(__dirname+'/uploads/' + txtFile.name);
             
             let TEST_CONFIG_JSON = "config.json";
-            const childPythen = spawn('python', ['./main.py',fileName,TEST_CONFIG_JSON]);
+            const childPythen = spawn('python', ['./main.py',img.name,TEST_CONFIG_JSON]);
             
             childPythen.stdout.on('data', (data)=>{
                 console.log('stdout :: '+data);
