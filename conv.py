@@ -4,26 +4,26 @@ import random
 import json
 import os
 
-def color(rssi):
-    if rssi<=0 and rssi>-11:
-        return "magenta"
-    elif rssi<=-11 and rssi>-22:
-        return "lightpink"
-    elif rssi<=-22 and rssi>-33:
-        return "white"
-    elif rssi<=-33 and rssi>-44:
-        return "yellow"
-    elif rssi<=-44 and rssi>-55:
-        return "lightgreen"
-    elif rssi<=-55 and rssi>-66:
-        return "magenta"
-    elif rssi<=-66 and rssi>-77:
-        return "lightblue"
-    elif rssi<=-77 and rssi>-88:
-        return "cyan"
-    else:
-        return "blue"
-    
+#def color(rssi):
+#    if rssi<=0 and rssi>-11:
+#        return "magenta"
+#    elif rssi<=-11 and rssi>-22:
+#        return "lightpink"
+#    elif rssi<=-22 and rssi>-33:
+#        return "white"
+#    elif rssi<=-33 and rssi>-44:
+#        return "yellow"
+#    elif rssi<=-44 and rssi>-55:
+#        return "lightgreen"
+#    elif rssi<=-55 and rssi>-66:
+#        return "magenta"
+#    elif rssi<=-66 and rssi>-77:
+#        return "lightblue"
+#    elif rssi<=-77 and rssi>-88:
+#        return "cyan"
+#    else:
+#        return "blue"
+#    
 
 TEST_CONFIG_JSON = 'config.json' 
 #TXT = './uploads/WSS.txt'
@@ -54,10 +54,10 @@ for i in range(0, v):
     X = int(df.iloc[i]['X'])
     Y = int(df.iloc[i]['Y']) 
     ss = int(df.iloc[i]['RSSI']) 
-    col = color(ss)
+    #col = color(ss)
     JSON_structure["results"][start_num] = { 
                 "position": {"x": X, "y": Y}, 
-                "fill_color": col, 
+                "fill_color": "lightblue", 
                 "selected": False, 
                 "station": False, 
                 "results": {"signal_strength": ss}, 

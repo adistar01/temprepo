@@ -1,7 +1,6 @@
 from lib2to3.pgen2.tokenize import generate_tokens
 import os
 import sys
-import subprocess
 
 #TEST_CONFIG_JSON = "config.json"
 #TEST_IMAGE = "testP1.png"
@@ -12,11 +11,15 @@ class MakeHeatMap:
         self.json = TEST_CONFIG_JSON
 
     def run(self):
-        generate_graph(data=self.json, floor_map="./images/" + self.img)
+        print("Bef plot")
+        print("A plot 2")
+        print(self.img)
+        generate_graph(data=self.json, floor_map="./images/"+self.img)
+        print("Created")
         
-        # os.system(
-        #     "whm plot --map ./images/" + self.img + " --config " + self.json
-        #     )
+        #os.system(
+        #   "whm plot --map ./images/" + self.img + " --config " + self.json
+        #    )
 
 
 if __name__ == "__main__":

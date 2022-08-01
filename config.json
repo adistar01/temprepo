@@ -19,43 +19,43 @@
         "benchmark_iterations": 1
     },
     "results": {
-        "252": {
+        "198": {
             "position": {
                 "x": 180,
                 "y": 1043
             },
-            "fill_color": "lightpink",
+            "fill_color": "lightblue",
             "selected": false,
             "station": false,
             "results": {
                 "signal_strength": -12
             }
         },
-        "253": {
+        "199": {
             "position": {
                 "x": 150,
                 "y": 661
             },
-            "fill_color": "white",
+            "fill_color": "lightblue",
             "selected": false,
             "station": false,
             "results": {
                 "signal_strength": -30
             }
         },
-        "254": {
+        "200": {
             "position": {
                 "x": 69,
                 "y": 766
             },
-            "fill_color": "yellow",
+            "fill_color": "lightblue",
             "selected": false,
             "station": false,
             "results": {
                 "signal_strength": -35
             }
         },
-        "255": {
+        "201": {
             "position": {
                 "x": 200,
                 "y": 386
@@ -67,55 +67,55 @@
                 "signal_strength": -70
             }
         },
-        "256": {
+        "202": {
             "position": {
                 "x": 321,
                 "y": 530
             },
-            "fill_color": "magenta",
+            "fill_color": "lightblue",
             "selected": false,
             "station": false,
             "results": {
                 "signal_strength": -5
             }
         },
-        "257": {
+        "203": {
             "position": {
                 "x": 626,
                 "y": 315
             },
-            "fill_color": "lightgreen",
+            "fill_color": "lightblue",
             "selected": false,
             "station": false,
             "results": {
                 "signal_strength": -51
             }
         },
-        "258": {
+        "204": {
             "position": {
                 "x": 301,
                 "y": 715
             },
-            "fill_color": "yellow",
+            "fill_color": "lightblue",
             "selected": false,
             "station": false,
             "results": {
                 "signal_strength": -40
             }
         },
-        "259": {
+        "205": {
             "position": {
                 "x": 219,
                 "y": 366
             },
-            "fill_color": "yellow",
+            "fill_color": "lightblue",
             "selected": false,
             "station": false,
             "results": {
                 "signal_strength": -40
             }
         },
-        "260": {
+        "206": {
             "position": {
                 "x": 407,
                 "y": 351
@@ -127,72 +127,72 @@
                 "signal_strength": -66
             }
         },
-        "261": {
+        "207": {
             "position": {
                 "x": 191,
                 "y": 734
             },
-            "fill_color": "cyan",
+            "fill_color": "lightblue",
             "selected": false,
             "station": false,
             "results": {
                 "signal_strength": -78
             }
         },
-        "262": {
+        "208": {
             "position": {
                 "x": 134,
                 "y": 274
             },
-            "fill_color": "white",
+            "fill_color": "lightblue",
             "selected": false,
             "station": false,
             "results": {
                 "signal_strength": -25
             }
         },
-        "263": {
+        "209": {
             "position": {
                 "x": 628,
                 "y": 370
             },
-            "fill_color": "yellow",
+            "fill_color": "lightblue",
             "selected": false,
             "station": false,
             "results": {
                 "signal_strength": -41
             }
         },
-        "264": {
+        "210": {
             "position": {
                 "x": 282,
                 "y": 324
             },
-            "fill_color": "yellow",
+            "fill_color": "lightblue",
             "selected": false,
             "station": false,
             "results": {
                 "signal_strength": -40
             }
         },
-        "265": {
+        "211": {
             "position": {
                 "x": 331,
                 "y": 711
             },
-            "fill_color": "yellow",
+            "fill_color": "lightblue",
             "selected": false,
             "station": false,
             "results": {
                 "signal_strength": -41
             }
         },
-        "266": {
+        "212": {
             "position": {
                 "x": 674,
                 "y": 908
             },
-            "fill_color": "yellow",
+            "fill_color": "lightblue",
             "selected": false,
             "station": false,
             "results": {
