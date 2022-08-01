@@ -69,8 +69,10 @@ app.post('/generate-heatmap', async(req, res) => {
             //} catch (e) {
             //next(e);
             //}
+            console.log(req.body);
+            console.log(req.body.base64image);
             b64 = req.body.base64image.split(" ").join("");
-            console.log(b64);
+            //console.log(b64);
             let imageBuffer = new Buffer(b64, 'base64');
 
             let fileName = 'image'+Date.now()+'.jpeg';
