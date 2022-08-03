@@ -11,8 +11,9 @@ class MakeHeatMap:
         self.json = TEST_CONFIG_JSON
 
     def run(self):
-        print("A plot 2")
-        generate_graph(data=self.json, floor_map="./images/"+self.img)
+        print('./images/'+self.img)
+        print(self.json)
+        generate_graph(data=self.json, floor_map='./images/'+self.img)
         print("Created")
         
         #os.system(

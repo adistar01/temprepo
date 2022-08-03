@@ -19,10 +19,22 @@
         "benchmark_iterations": 1
     },
     "results": {
-        "270": {
+        "386": {
             "position": {
-                "x": 180,
-                "y": 1043
+                "x": 88,
+                "y": 515
+            },
+            "fill_color": "lightblue",
+            "selected": false,
+            "station": false,
+            "results": {
+                "signal_strength": -60
+            }
+        },
+        "387": {
+            "position": {
+                "x": 665,
+                "y": 114
             },
             "fill_color": "lightblue",
             "selected": false,
@@ -31,10 +43,10 @@
                 "signal_strength": -12
             }
         },
-        "271": {
+        "388": {
             "position": {
-                "x": 150,
-                "y": 661
+                "x": 995,
+                "y": 133
             },
             "fill_color": "lightblue",
             "selected": false,
@@ -43,10 +55,10 @@
                 "signal_strength": -30
             }
         },
-        "272": {
+        "389": {
             "position": {
-                "x": 69,
-                "y": 766
+                "x": 238,
+                "y": 656
             },
             "fill_color": "lightblue",
             "selected": false,
@@ -55,148 +67,16 @@
                 "signal_strength": -35
             }
         },
-        "273": {
+        "390": {
             "position": {
-                "x": 200,
-                "y": 386
+                "x": 949,
+                "y": 690
             },
             "fill_color": "lightblue",
             "selected": false,
             "station": false,
             "results": {
                 "signal_strength": -70
-            }
-        },
-        "274": {
-            "position": {
-                "x": 321,
-                "y": 530
-            },
-            "fill_color": "lightblue",
-            "selected": false,
-            "station": false,
-            "results": {
-                "signal_strength": -5
-            }
-        },
-        "275": {
-            "position": {
-                "x": 626,
-                "y": 315
-            },
-            "fill_color": "lightblue",
-            "selected": false,
-            "station": false,
-            "results": {
-                "signal_strength": -51
-            }
-        },
-        "276": {
-            "position": {
-                "x": 301,
-                "y": 715
-            },
-            "fill_color": "lightblue",
-            "selected": false,
-            "station": false,
-            "results": {
-                "signal_strength": -40
-            }
-        },
-        "277": {
-            "position": {
-                "x": 219,
-                "y": 366
-            },
-            "fill_color": "lightblue",
-            "selected": false,
-            "station": false,
-            "results": {
-                "signal_strength": -40
-            }
-        },
-        "278": {
-            "position": {
-                "x": 407,
-                "y": 351
-            },
-            "fill_color": "lightblue",
-            "selected": false,
-            "station": false,
-            "results": {
-                "signal_strength": -66
-            }
-        },
-        "279": {
-            "position": {
-                "x": 191,
-                "y": 734
-            },
-            "fill_color": "lightblue",
-            "selected": false,
-            "station": false,
-            "results": {
-                "signal_strength": -78
-            }
-        },
-        "280": {
-            "position": {
-                "x": 134,
-                "y": 274
-            },
-            "fill_color": "lightblue",
-            "selected": false,
-            "station": false,
-            "results": {
-                "signal_strength": -25
-            }
-        },
-        "281": {
-            "position": {
-                "x": 628,
-                "y": 370
-            },
-            "fill_color": "lightblue",
-            "selected": false,
-            "station": false,
-            "results": {
-                "signal_strength": -41
-            }
-        },
-        "282": {
-            "position": {
-                "x": 282,
-                "y": 324
-            },
-            "fill_color": "lightblue",
-            "selected": false,
-            "station": false,
-            "results": {
-                "signal_strength": -40
-            }
-        },
-        "283": {
-            "position": {
-                "x": 331,
-                "y": 711
-            },
-            "fill_color": "lightblue",
-            "selected": false,
-            "station": false,
-            "results": {
-                "signal_strength": -41
-            }
-        },
-        "284": {
-            "position": {
-                "x": 674,
-                "y": 908
-            },
-            "fill_color": "lightblue",
-            "selected": false,
-            "station": false,
-            "results": {
-                "signal_strength": -39
             }
         }
     }

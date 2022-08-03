@@ -5,8 +5,10 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const _ = require('lodash');
 const { spawn } = require('child_process');
-const fs = require('fs')
-const mime = require('mime')
+const fs = require('fs');
+//var sizeOf = require('image-size');
+ 
+
 const app = express();
 //const router = express.Router();
 // enable files upload
@@ -33,6 +35,7 @@ function delay(time) {
   } 
 // upoad single file
 app.post('/generate-heatmap', async(req, res) => {
+//app.post('/generate-heatmap', (req, res) => {
     try {
         //if(!req.body.base64image && !req.files){
         //    console.log('No i/p');
@@ -51,52 +54,25 @@ app.post('/generate-heatmap', async(req, res) => {
             //Use the name of the input field (i.e. "txtFile") to retrieve the uploaded files
             let txtFile = req.files.txtFile;
             let img = req.files.base64image;
-            console.log(1);
+            console.log(img.name);
+            //var dimensions = sizeOf(img.name);
+            //console.log(dimensions.width, dimensions.height);
             img.mv('./images/' + img.name);
-            //var matches = req.body.base64image.match(/^data:([A-Za-z-+/]+);base64,(.+)$/);
-            //response = {};
-            // 
-            //if (matches.length !== 3) {
-            //return new Error('Invalid input string');
-            //}
-            //response.type = matches[1];
-            //response.data = new Buffer(matches[2], 'base64');
-            //let decodedImg = response;
-            //let imageBuffer = decodedImg.data;
-            //console.log(imageBuffer)
-            //let type = decodedImg.type;
-            //let extension = mime.extension(type);
-            //let fileName = 'image'+Date.now()+'.'+extension;
-            //try {
-            //fs.writeFileSync("./images/" + fileName, imageBuffer, 'utf8');
-            //} catch (e) {
-            //next(e);
-            //}
-            //console.log(req.body);
-            //console.log(req.body.base64image);
-            //let b64 = req.body.base64image.split(" ").join("");
-            //console.log(b64);
-            //let imageBuffer = new Buffer(b64, 'base64');
-//
-            //let fileName = 'image'+Date.now()+'.jpeg';
-            //try {
-            //fs.writeFileSync('./images/' + fileName, imageBuffer, 'utf8');
-            //} catch (e) {
-            //next(e);
-            //}
+            
             
             let path="";
             temp = req.files.txtFile.data.toString('utf-8');
             console.log(temp);
-            console.log(3);
+
             try {
                 await fs.writeFileSync(__dirname+'/uploads/'+txtFile.name, temp);
+                //fs.writeFileSync(__dirname+'/uploads/'+txtFile.name, temp);
                 path = __dirname+"/uploads/"+txtFile.name;
               } catch (err) {
                 console.log(err);
               }
-              console.log(4);
-            const childPython = spawn('python', ['./conv.py',path]);
+
+            const childPython = spawn('python', ['./conv.py',path], {encoding:'utf-8'});
             childPython.stdout.on('data', (data)=>{
                 console.log('stdout ::'+data);
             });
@@ -107,11 +83,19 @@ app.post('/generate-heatmap', async(req, res) => {
             childPython.stdout.on('close', (code)=>{
                 console.log(`ChildPython process exited with code : ${code}`);
             });
+
+            await delay(3000);
             
             //Use the mv() method to place the file in upload directory (i.e. "uploads")
-            txtFile.mv(__dirname+'/uploads/' + txtFile.name);
+            //txtFile.mv(__dirname+'/uploads/' + txtFile.name);
             
             let TEST_CONFIG_JSON = "config.json";
+            let rawdata = await fs.readFileSync('config.json');
+            //let rawdata = fs.readFileSync('config.json');
+            let student = JSON.parse(rawdata);
+            console.log(student);
+            console.log(student.results);
+
             const childPythen = spawn('python', ['./main.py',img.name,TEST_CONFIG_JSON]);
             
             childPythen.stdout.on('data', (data)=>{
@@ -135,6 +119,7 @@ app.post('/generate-heatmap', async(req, res) => {
         });
         */
             await delay(5000);
+            //delay(5000);
             fs.readFile(__dirname+"/signal_strength.png", function (err, data) {
                 if (err) throw err;
                 fs.writeFile(__dirname+'/Heatmaps/image'+Date.now()+'.jpeg', data, function (err) {

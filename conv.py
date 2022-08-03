@@ -2,7 +2,6 @@ import pandas as pd
 import sys
 import random
 import json
-import os
 
 #def color(rssi):
 #    if rssi<=0 and rssi>-11:
@@ -24,13 +23,12 @@ import os
 #    else:
 #        return "blue"
 #    
-
+print("Enter")
 TEST_CONFIG_JSON = 'config.json' 
 #TXT = './uploads/WSS.txt'
 TXT = sys.argv[1]
-# check if size of file is 0
 df = pd.read_csv(TXT, sep="\t", header=None, names=["Number of times","SSID","RSSI","X","Y","Frequency","LinkSpeed","RxLinkSpeed","TxLinkSpeed","operating_band"]) 
-df.drop(df.index[0:2], inplace=True) 
+df.drop(df.index[0:1], inplace=True) 
 df.to_json('data.json', orient='records') 
 v = df.shape[0] 
 JSON_structure = { 
@@ -52,7 +50,7 @@ JSON_structure = {
 start_num = random.randint(50, 500) 
 for i in range(0, v): 
     X = int(df.iloc[i]['X'])
-    Y = int(df.iloc[i]['Y']) 
+    Y = int(df.iloc[i]['Y'])
     ss = int(df.iloc[i]['RSSI']) 
     #col = color(ss)
     JSON_structure["results"][start_num] = { 
@@ -64,4 +62,5 @@ for i in range(0, v):
             } 
     start_num = start_num + 1 
 with open(TEST_CONFIG_JSON, "w") as file: 
-    json.dump(JSON_structure, file, indent=4) 
+    json.dump(JSON_structure, file, indent=4)
+print("Done") 
