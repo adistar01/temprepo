@@ -55,6 +55,7 @@ app.post('/generate-heatmap', async(req, res) => {
             let txtFile = req.files.txtFile;
             let img = req.files.base64image;
             console.log(img.name);
+            console.log(req.body);
             img.mv('./images/' + img.name);
 
             var dimensions = sizeOf('./images/'+img.name);
