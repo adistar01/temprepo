@@ -6,7 +6,7 @@ const morgan = require('morgan');
 const _ = require('lodash');
 const { spawn } = require('child_process');
 const fs = require('fs');
-//var sizeOf = require('image-size');
+const sizeOf = require('image-size');
  
 
 const app = express();
@@ -55,9 +55,12 @@ app.post('/generate-heatmap', async(req, res) => {
             let txtFile = req.files.txtFile;
             let img = req.files.base64image;
             console.log(img.name);
-            //var dimensions = sizeOf(img.name);
-            //console.log(dimensions.width, dimensions.height);
             img.mv('./images/' + img.name);
+
+            var dimensions = sizeOf('./images/'+img.name);
+            console.log(dimensions.width, dimensions.height);
+
+
             
             
             let path="";
