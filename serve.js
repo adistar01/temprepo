@@ -56,7 +56,11 @@ app.post('/generate-heatmap', async(req, res) => {
             let img = req.files.base64image;
             console.log(img.name);
             console.log(req.body);
-            img.mv('./images/' + img.name);
+            try{
+                 await img.mv('./images/' + img.name);
+            }catch(err){
+                console.log(err);
+            }
             
 
             
@@ -74,6 +78,7 @@ app.post('/generate-heatmap', async(req, res) => {
               } catch (err) {
                 console.log(err);
               }
+            
 
               var dimensions = sizeOf('./images/'+img.name);
               console.log(dimensions.width, dimensions.height);
