@@ -19,7 +19,7 @@
         "benchmark_iterations": 1
     },
     "results": {
-        "169": {
+        "162": {
             "position": {
                 "x": 88,
                 "y": 515
@@ -31,7 +31,7 @@
                 "signal_strength": -60
             }
         },
-        "170": {
+        "163": {
             "position": {
                 "x": 665,
                 "y": 114
@@ -43,7 +43,7 @@
                 "signal_strength": -12
             }
         },
-        "171": {
+        "164": {
             "position": {
                 "x": 995,
                 "y": 133
@@ -55,7 +55,7 @@
                 "signal_strength": -30
             }
         },
-        "172": {
+        "165": {
             "position": {
                 "x": 238,
                 "y": 656
@@ -67,7 +67,7 @@
                 "signal_strength": -35
             }
         },
-        "173": {
+        "166": {
             "position": {
                 "x": 949,
                 "y": 690

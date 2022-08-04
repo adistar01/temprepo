@@ -57,16 +57,15 @@ app.post('/generate-heatmap', async(req, res) => {
             console.log(img.name);
             console.log(req.body);
             img.mv('./images/' + img.name);
-
-            var dimensions = sizeOf('./images/'+img.name);
-            console.log(dimensions.width, dimensions.height);
-
+            
 
             
             
             let path="";
             temp = req.files.txtFile.data.toString('utf-8');
             console.log(temp);
+
+            
 
             try {
                 await fs.writeFileSync(__dirname+'/uploads/'+txtFile.name, temp);
@@ -75,6 +74,9 @@ app.post('/generate-heatmap', async(req, res) => {
               } catch (err) {
                 console.log(err);
               }
+
+              var dimensions = sizeOf('./images/'+img.name);
+              console.log(dimensions.width, dimensions.height);
 
             const childPython = spawn('python', ['./conv.py',path], {encoding:'utf-8'});
             childPython.stdout.on('data', (data)=>{
