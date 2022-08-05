@@ -79,6 +79,8 @@ app.post('/generate-heatmap', async(req, res) => {
               } catch (err) {
                 console.log(err);
               }
+
+              console.log(req.body);
             
               let x = parseInt(req.body.Width);
               let y = parseInt(req.body.Height);
