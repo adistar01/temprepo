@@ -7,6 +7,7 @@ const _ = require('lodash');
 const { spawn } = require('child_process');
 const fs = require('fs');
 const sizeOf = require('image-size');
+const sharp = require('sharp');
  
 
 const app = express();
@@ -55,7 +56,7 @@ app.post('/generate-heatmap', async(req, res) => {
             let txtFile = req.files.txtFile;
             let img = req.files.base64image;
             console.log(img.name);
-            console.log(req.body);
+            //console.log(req.body);
             try{
                  await img.mv('./images/' + img.name);
             }catch(err){
@@ -79,11 +80,23 @@ app.post('/generate-heatmap', async(req, res) => {
                 console.log(err);
               }
             
+              let x = parseInt(req.body.Width);
+              let y = parseInt(req.body.Height);
+              console.log(x+" "+y);
 
               var dimensions = sizeOf('./images/'+img.name);
               console.log(dimensions.width, dimensions.height);
 
-            const childPython = spawn('python', ['./conv.py',path], {encoding:'utf-8'});
+            sharp('./images/'+img.name).resize({ height: y, width: x , fit : 'fill' }).toFile('./ResizedImages/'+img.name)
+            .then(function(newFileInfo) {
+            console.log("Success");
+            })
+            .catch(function(err) {
+            console.log("Error occured");
+            console.log(err);
+            });
+
+            const childPython = spawn('python', ['./conv.py',path]);
             childPython.stdout.on('data', (data)=>{
                 console.log('stdout ::'+data);
             });
@@ -104,7 +117,6 @@ app.post('/generate-heatmap', async(req, res) => {
             let rawdata = await fs.readFileSync('config.json');
             //let rawdata = fs.readFileSync('config.json');
             let student = JSON.parse(rawdata);
-            console.log(student);
             console.log(student.results);
 
             const childPythen = spawn('python', ['./main.py',img.name,TEST_CONFIG_JSON]);
