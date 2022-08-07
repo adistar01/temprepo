@@ -1,9 +1,7 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
-const cors = require('cors');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const _ = require('lodash');
 const { spawn } = require('child_process');
 const fs = require('fs');
 const sizeOf = require('image-size');
@@ -11,7 +9,8 @@ const sharp = require('sharp');
  
 
 const app = express();
-//const router = express.Router();
+
+
 // enable files upload
 app.use(fileUpload({
     createParentPath: true,
@@ -19,44 +18,61 @@ app.use(fileUpload({
         fileSize: 2 * 1024 * 1024 * 1024 //2MB max file(s) size
     },
 }));
+
+
 //add other middleware
-app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(morgan('dev'));
-//app.use(express.static('images'));
-app.get('/', (req, res) => {
-    res.sendFile(__dirname+"/index.html");
-  })
-app.get('/acc', (req, res, next) => {
-    res.sendFile(__dirname+"/access.html");
-  });
+
+//make uploads directory static
+app.use(express.static('uploads'));
+//make images directory static
+app.use(express.static('images'));
+
+
+// Function to let the server wait before executing ahead
 function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
   } 
-// upoad single file
+
+
+// To send input through form data an html page will be displayed
+app.get('/', (req, res) => {
+    res.sendFile(__dirname+"/index.html");
+  })
+
+
+
+
+// API to handle the input sent by user and send the heatmap generated
 app.post('/generate-heatmap', async(req, res) => {
-//app.post('/generate-heatmap', (req, res) => {
     try {
-        //if(!req.body.base64image && !req.files){
-        //    console.log('No i/p');
-        //    res.status(404).send( 'No input found');
-        //}
-        //else if(!req.files) {
-            if(!req.files) {
+        if(!req.files.base64image && !req.files.txtFile && !req.body.Height && !req.body.Width){
+            console.log('No i/p');
+           res.status(404).send( 'No input found');
+        }
+            else if(!req.files.txtFile) {
             console.log('No txt file');
             res.status(400).end( 'No txt file uploaded');
         }
-        //else if(!req.body.base64image){
-        //    console.log('No image');
-        //    res.status(400).end( 'No image uploaded!');
-        //}
+        else if(!req.files.base64image){
+            console.log('No image');
+            res.status(400).end( 'No image uploaded!');
+        }
+        else if(!req.body.Height || !req.body.Width)
+        {
+            console.log("Dimensions invalid");
+            res.status(400).end("Correct dimensions not provided");
+        }
          else {
-            //Use the name of the input field (i.e. "txtFile") to retrieve the uploaded files
+            //Using the name of the input field (i.e. "txtFile") to retrieve the uploaded files
             let txtFile = req.files.txtFile;
+
+            //Using the name of the input field (i.e. "base64image") to retrieve the uploaded files
             let img = req.files.base64image;
-            console.log(img.name);
-            //console.log(req.body);
+
+            // To store the image sent in images directory
             try{
                  await img.mv('./images/' + img.name);
             }catch(err){
@@ -65,30 +81,23 @@ app.post('/generate-heatmap', async(req, res) => {
             
 
             
-            
             let path="";
             temp = req.files.txtFile.data.toString('utf-8');
-            console.log(temp);
 
-            
-
+            // Storing the received textfile in uploads directory
             try {
                 await fs.writeFileSync(__dirname+'/uploads/'+txtFile.name, temp);
-                //fs.writeFileSync(__dirname+'/uploads/'+txtFile.name, temp);
                 path = __dirname+"/uploads/"+txtFile.name;
               } catch (err) {
                 console.log(err);
               }
-
-              console.log(req.body);
             
-              let x = parseInt(req.body.Width);
-              let y = parseInt(req.body.Height);
-              console.log(x+" "+y);
+            let x = parseInt(req.body.Width);
+            let y = parseInt(req.body.Height);
 
-              var dimensions = sizeOf('./images/'+img.name);
-              console.log(dimensions.width, dimensions.height);
+            var dimensions = sizeOf('./images/'+img.name);
 
+            // Resizing the image received to correct dimensions and store it in ResizedImages directory
             sharp('./images/'+img.name).resize({ height: y, width: x , fit : 'fill' }).toFile('./ResizedImages/'+img.name)
             .then(function(newFileInfo) {
             console.log("Success");
@@ -98,6 +107,8 @@ app.post('/generate-heatmap', async(req, res) => {
             console.log(err);
             });
 
+
+            // spawning the conv.py script to convert textfile into json file 
             const childPython = spawn('python', ['./conv.py',path]);
             childPython.stdout.on('data', (data)=>{
                 console.log('stdout ::'+data);
@@ -112,15 +123,11 @@ app.post('/generate-heatmap', async(req, res) => {
 
             await delay(3000);
             
-            //Use the mv() method to place the file in upload directory (i.e. "uploads")
-            //txtFile.mv(__dirname+'/uploads/' + txtFile.name);
             
             let TEST_CONFIG_JSON = "config.json";
-            let rawdata = await fs.readFileSync('config.json');
-            //let rawdata = fs.readFileSync('config.json');
-            let student = JSON.parse(rawdata);
-            console.log(student.results);
 
+
+            // spawning the main.py script to generate the heatmap from config.json file
             const childPythen = spawn('python', ['./main.py',img.name,TEST_CONFIG_JSON]);
             
             childPythen.stdout.on('data', (data)=>{
@@ -133,18 +140,9 @@ app.post('/generate-heatmap', async(req, res) => {
                 console.log('ChildPythen process exited with code : '+code);
             });
             
-            
-            /*var fileName = './signal_strength.png';
-            /*res.sendFile(fileName, options, function(err){
-            if (err) {
-                next(err);
-            } else {
-                console.log('Sent:', fileName);
-            }
-        });
-        */
             await delay(5000);
-            //delay(5000);
+
+            // storing the generated heatmap in Heatmaps directory
             fs.readFile(__dirname+"/signal_strength.png", function (err, data) {
                 if (err) throw err;
                 fs.writeFile(__dirname+'/Heatmaps/image'+Date.now()+'.jpeg', data, function (err) {
@@ -152,19 +150,16 @@ app.post('/generate-heatmap', async(req, res) => {
                     console.log('It\'s saved!');
                 });
             });
-        
+            
+            // Sending the generated heatmap back as response
             res.sendFile(__dirname+"/signal_strength.png")
         }
     } catch (err) {
         res.status(500).send(err);
     }
 });
-app.get('/get_heatmap',(req,res)=>{
-    res.sendFile(__dirname+"/signal_strength.png");
-})
-//make uploads directory static
-app.use(express.static('uploads'));
-app.use(express.static('images'));
+
+
 //start app 
 const port = process.env.PORT || 3000;
 app.listen(port, () => 
